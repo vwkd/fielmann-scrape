@@ -1,0 +1,76 @@
+{
+  "_id": "fielmann",
+  "startUrl": [
+    "https://www.fielmann.de/brillen/"
+  ],
+  "selectors": [
+    {
+      "id": "product",
+      "multiple": true,
+      "parentSelectors": [
+        "next"
+      ],
+      "selector": "main div[data-testid=\"list_product\"]",
+      "type": "SelectorElement"
+    },
+    {
+      "id": "next",
+      "paginationType": "clickMore",
+      "parentSelectors": [
+        "_root",
+        "next"
+      ],
+      "selector": "main button[data-testid='pagination-next-button']",
+      "type": "SelectorPagination"
+    },
+    {
+      "id": "model",
+      "multiple": false,
+      "parentSelectors": [
+        "product"
+      ],
+      "regex": "",
+      "selector": "p:nth-of-type(2)",
+      "type": "SelectorText"
+    },
+    {
+      "id": "price",
+      "multiple": false,
+      "parentSelectors": [
+        "product"
+      ],
+      "regex": "",
+      "selector": "span.ml-1",
+      "type": "SelectorText"
+    },
+    {
+      "id": "anchor",
+      "linkType": "linkFromHref",
+      "multiple": false,
+      "parentSelectors": [
+        "product"
+      ],
+      "selector": ".p-4 a",
+      "type": "SelectorLink"
+    },
+    {
+      "id": "color",
+      "multiple": false,
+      "parentSelectors": [
+        "anchor"
+      ],
+      "regex": "",
+      "selector": "div.actions div.header-info > h1 > span",
+      "type": "SelectorText"
+    },
+    {
+      "extractAttribute": "src",
+      "id": "images",
+      "parentSelectors": [
+        "anchor"
+      ],
+      "selector": "div.gallery div[tabindex=\"0\"] img",
+      "type": "SelectorGroup"
+    }
+  ]
+}
