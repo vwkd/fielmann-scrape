@@ -1,9 +1,11 @@
 {
   "tasks": {
     "products": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/products.ts",
-    "images": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/images.ts"
+    "images": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/images.ts",
+    "render": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/render.ts"
   },
   "imports": {
+    "@std/encoding": "jsr:@std/encoding@^0.222.1",
     "@std/fs": "jsr:@std/fs@^0.222.1",
     "@std/path": "jsr:@std/path@^0.222.1"
   }
