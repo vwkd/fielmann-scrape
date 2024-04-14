@@ -20,9 +20,9 @@ Scrape products from Fielmann
 
 ```nu
 open fielmann.csv
-  | select model color price anchor-href images
+  | select artikelnummer marke modell fassungsfarbe herstellerfarbcode price anchor-href images
   | rename -c {anchor-href: url}
-  | sort-by model color
+  | sort-by marke modell fassungsfarbe
   | update price {|row| $row.price | str replace -r ' €$' '' }
   | update images {|row| $row.images | from json | get images-src | to json -r }
   | save data.csv
