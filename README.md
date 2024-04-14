@@ -26,3 +26,9 @@ deno task products
 ```sh
 deno task images
 ```
+
+- render images
+
+```sh
+deno task render
+```

@@ -3,12 +3,16 @@
   "packages": {
     "specifiers": {
       "jsr:@std/assert@^0.222.1": "jsr:@std/assert@0.222.1",
+      "jsr:@std/encoding@^0.222.1": "jsr:@std/encoding@0.222.1",
       "jsr:@std/fs@^0.222.1": "jsr:@std/fs@0.222.1",
       "jsr:@std/path@^0.222.1": "jsr:@std/path@0.222.1"
     },
     "jsr": {
       "@std/assert@0.222.1": {
         "integrity": "691637161ee584a9919d1f9950ddd1272feb8e0a19e83aa5b7563cedaf73d74c"
+      },
+      "@std/encoding@0.222.1": {
+        "integrity": "fb6c1d38722feebc8d4a5efa3eb2039ecec0d50d053186240484d0c4a4ce1006"
       },
       "@std/fs@0.222.1": {
         "integrity": "337613f33e6e5970dddb263c3a3e5b8e39c97810ad6fe326cb9f65146af2503b",
@@ -28,6 +32,7 @@
   "remote": {},
   "workspace": {
     "dependencies": [
+      "jsr:@std/encoding@^0.222.1",
       "jsr:@std/fs@^0.222.1",
       "jsr:@std/path@^0.222.1"
     ]
