@@ -1,0 +1,31 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@std/assert@^0.222.1": "jsr:@std/assert@0.222.1",
+      "jsr:@std/fs@^0.222.1": "jsr:@std/fs@0.222.1",
+      "jsr:@std/path@^0.222.1": "jsr:@std/path@0.222.1"
+    },
+    "jsr": {
+      "@std/assert@0.222.1": {
+        "integrity": "691637161ee584a9919d1f9950ddd1272feb8e0a19e83aa5b7563cedaf73d74c"
+      },
+      "@std/fs@0.222.1": {
+        "integrity": "337613f33e6e5970dddb263c3a3e5b8e39c97810ad6fe326cb9f65146af2503b"
+      },
+      "@std/path@0.222.1": {
+        "integrity": "aad3e9463ca53b0adb25b4d5beb330025674aaa3278da24c1c261d9289a9e48b",
+        "dependencies": [
+          "jsr:@std/assert@^0.222.1"
+        ]
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/fs@^0.222.1",
+      "jsr:@std/path@^0.222.1"
+    ]
+  }
+}
