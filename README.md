@@ -20,3 +20,9 @@ Scrape products from Fielmann
 ```sh
 deno task products
 ```
+
+- download images
+
+```sh
+deno task images
+```

@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "products": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/products.ts"
+    "products": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/products.ts",
+    "images": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/images.ts"
   },
   "imports": {
     "@std/fs": "jsr:@std/fs@^0.222.1",
