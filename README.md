@@ -4,6 +4,14 @@ Scrape products from Fielmann
 
 
 
+## Features
+
+- fetch products
+- download images
+- render images with face
+
+
+
 ## Requirements
 
 - Deno
