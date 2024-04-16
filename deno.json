@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "products": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/products.ts",
+    "products": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/parse.ts",
     "images": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/images.ts",
     "render": "deno run --allow-net --allow-read --allow-write --allow-env --env src/features/render.ts"
   },
