@@ -20,30 +20,38 @@ Scrape products from Fielmann
 
 ## Usage
 
-- open https://www.fielmann.de/brillen/ in a browser, create the desired filters, and show results
-- note: recommends to run script multiple times for multiple specific filters to get multiple separate ouput directories, rather than single time for single unspecific filter to get single output directory
-- copy the filters from the URL into `.env`
-- parse products
+- open [URL](https://www.fielmann.de/brillen/) in a browser, create the desired filters, and show results
+- set `BRAND`, `TARGET_GROUP`, `SHAPE`, `FACE_SHAPE` in `.env` with filter values from URL
+- note: recommends to run script several times for multiple specific filters rather than single time for one unspecific filter to get multiple separate output directories instead of one commingled.
+
+### Parse products
+
+- run
 
 ```sh
 deno task products
 ```
 
-- note: can browse with Nushell
-- note: beware of empty cells, throws error if row has empty cell for selected column
-- note: price is for rim only, needs to add price for lenses (e.g. 17€ for basic lenses), website shows price with basic lenses
+- can browse with Nushell
+- beware: throws error if row has empty cell for selected column!
+- beware: price is for rim only, needs to add price for lenses (e.g. 17€ for basic lenses), website shows price with basic lenses
 
-```sh
+```nu
 open out/productsParsed.json | select ean brand modelName frameColor shape rimType bridgeType hingeType headWidth lensWidth bridgeWidth templeLength price
 ```
 
-- download images
+### Download images
+
+- run
 
 ```sh
 deno task images
 ```
 
-- render images
+### Render images
+
+- set `FACE_PIC_FILEPATH` in `.env`
+- run
 
 ```sh
 deno task render
