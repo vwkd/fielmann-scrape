@@ -69,6 +69,23 @@ for (const product of products) {
 
   // advancedAttributes
   // -
+
+  const lensesArray: string[] = [];
+  for (
+    const lens of product.advancedAttributes.rxCountryIndexAvailability.values
+  ) {
+    const country = lens.fieldSet[0][0].value;
+
+    if (country !== "de") {
+      continue;
+    }
+
+    const lensId = lens.fieldSet[0][1].value;
+
+    lensesArray.push(lensId);
+  }
+  const lenses = lensesArray.join(", ");
+
   // images
   // -
 
@@ -107,6 +124,7 @@ for (const product of products) {
       ...attributes,
       ...variantAttributes,
       price,
+      lenses,
     });
   }
 
