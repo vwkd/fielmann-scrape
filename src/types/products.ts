@@ -1,7 +1,7 @@
 /**
  * Generated with https://app.quicktype.io/
  *
- * for response from https://www.fielmann.de/api/getProductsByCategory
+ * for response from https://www.fielmann.de/api/rpc/getProductsByCategory
  *
  * - manually simplified
  * - not complete

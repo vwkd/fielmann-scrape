@@ -47,10 +47,10 @@ open out/productsParsed.json | select ean brand modelName frameColor shape rimTy
 open out/productsParsed.json | where lenses !~ 'index_cr_nocoat'
 ```
 
-- e.g. get reference of lenses from [getRxProducts](https://www.fielmann.de/api/getRxProducts) endpoint
+- e.g. get reference of lenses from [getRxProducts](https://www.fielmann.de/api/rpc/getRxProducts) endpoint
 
 ```nu
-http post --content-type application/json https://www.fielmann.de/api/getRxProducts {} | get rxLensQualityIndex | select referenceKey attributes.name.values.label
+http post --content-type application/json https://www.fielmann.de/api/rpc/getRxProducts {"payload":{}} | get rxLensQualityIndex | select referenceKey attributes.name.values.label
 ```
 
 ### Download images
