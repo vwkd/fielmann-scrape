@@ -5,7 +5,7 @@ import { delay, random_number } from "../utils.ts";
 const USER_AGENT = Deno.env.get("USER_AGENT");
 const DELAY = Deno.env.get("DELAY");
 const DELAY_OFFSET = Deno.env.get("DELAY_OFFSET");
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 24;
 
 if (!USER_AGENT) {
   throw new Error(`Environment variable 'USER_AGENT' not set`);
@@ -32,31 +32,18 @@ interface Attributes {
  */
 function getBody(attributes: Attributes, page: number, perPage: number) {
   return {
-    page,
-    perPage,
-    with: {
-      attributes: "all",
-      advancedAttributes: "all",
-      categories: "all",
-      variants: {
+    payload: {
+      page,
+      perPage,
+      with: {
         attributes: "all",
         advancedAttributes: "all",
-        lowestPriorPrice: true,
-      },
-      images: {
-        attributes: {
-          withKey: [
-            "imageType",
-            "imageView",
-            "imageBackground",
-            "imageKind",
-            "imageVariantReferenceKey",
-          ],
+        categories: "all",
+        variants: {
+          attributes: "all",
+          advancedAttributes: "all",
+          lowestPriorPrice: true,
         },
-      },
-      priceRange: true,
-      lowestPriorPrice: true,
-      siblings: {
         images: {
           attributes: {
             withKey: [
@@ -68,53 +55,71 @@ function getBody(attributes: Attributes, page: number, perPage: number) {
             ],
           },
         },
-        attributes: {
-          withKey: [
-            "numberOfLenses",
-            "colorDetail",
-            "name",
-            "netContent",
-            "manufacturerColorCode",
-            "frameColor",
-            "filterCategory",
-          ],
-        },
         priceRange: true,
+        lowestPriorPrice: true,
+        siblings: {
+          images: {
+            attributes: {
+              withKey: [
+                "imageType",
+                "imageView",
+                "imageBackground",
+                "imageKind",
+                "imageVariantReferenceKey",
+              ],
+            },
+          },
+          attributes: {
+            withKey: [
+              "category",
+              "numberOfLenses",
+              "colorDetail",
+              "name",
+              "netContent",
+              "manufacturerColorCode",
+              "frameColor",
+              "filterCategory",
+            ],
+          },
+          priceRange: true,
+        },
       },
+      category: "/brillen/",
+      includeSellableForFree: true,
+      where: {
+        attributes: [
+          {
+            key: "brand",
+            type: "attributes",
+            values: attributes.brand,
+          },
+          {
+            key: "targetGroup",
+            type: "attributes",
+            values: attributes.targetGroup,
+          },
+          {
+            key: "shape",
+            type: "attributes",
+            values: attributes.shape,
+          },
+          {
+            key: "faceShape",
+            type: "attributes",
+            values: attributes.faceShape,
+          },
+        ].filter((el) => el.values.length > 0),
+        term: "",
+        page,
+      },
+      sort: {
+        name: "sortingKey",
+        sortingKey: "brillen",
+        direction: "asc",
+      },
+      pricePromotionKey: "",
+      includeSoldOut: false,
     },
-    category: "/brillen/",
-    where: {
-      attributes: [
-        {
-          key: "brand",
-          type: "attributes",
-          values: attributes.brand,
-        },
-        {
-          key: "targetGroup",
-          type: "attributes",
-          values: attributes.targetGroup,
-        },
-        {
-          key: "shape",
-          type: "attributes",
-          values: attributes.shape,
-        },
-        {
-          key: "faceShape",
-          type: "attributes",
-          values: attributes.faceShape,
-        },
-      ].filter((el) => el.values.length > 0),
-      term: "",
-    },
-    sort: {
-      name: "sortingKey",
-      sortingKey: "brillen",
-    },
-    pricePromotionKey: "",
-    includeSellableForFree: true,
-    includeSoldOut: false,
   };
 }
 
@@ -151,7 +156,7 @@ async function getProductsPage(
   page: number,
   perPage: number,
 ): Promise<ProductsByCategory> {
-  const productsUrl = `https://www.fielmann.de/api/getProductsByCategory`;
+  const productsUrl = `https://www.fielmann.de/api/rpc/getProductsByCategory`;
 
   const body = getBody(attributes, page, perPage);
   const body_str = JSON.stringify(body);
