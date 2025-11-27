@@ -1,4 +1,5 @@
 import { delay, random_number } from "../utils.ts";
+import { brand, faceShape, shape, targetGroup } from "../features/filters.ts";
 import type { Product, ProductsByCategory } from "../types/products.ts";
 
 const USER_AGENT = Deno.env.get("USER_AGENT");
@@ -30,10 +31,10 @@ if (Number.isInteger(DELAY_OFFSET) || DELAY_OFFSET < 0) {
 }
 
 interface Attributes {
-  brand: number[];
-  targetGroup: number[];
-  shape: number[];
-  faceShape: number[];
+  brand: (keyof typeof brand)[];
+  targetGroup: (keyof typeof targetGroup)[];
+  shape: (keyof typeof shape)[];
+  faceShape: (keyof typeof faceShape)[];
 }
 
 /**
