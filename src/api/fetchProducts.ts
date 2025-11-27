@@ -3,14 +3,11 @@ import { randomIntegerBetween } from "@std/random";
 import { brand, faceShape, shape, targetGroup } from "../features/filters.ts";
 import type { Product, ProductsByCategory } from "../types/products.ts";
 
-const USER_AGENT = Deno.env.get("USER_AGENT");
 const DELAY_STR = Deno.env.get("DELAY");
 const DELAY_OFFSET_STR = Deno.env.get("DELAY_OFFSET");
 const PAGE_SIZE = 24;
 
-if (!USER_AGENT) {
-  throw new Error(`Environment variable 'USER_AGENT' not set`);
-} else if (!DELAY_STR) {
+if (!DELAY_STR) {
   throw new Error(`Environment variable 'DELAY' not set`);
 } else if (!DELAY_OFFSET_STR) {
   throw new Error(`Environment variable 'DELAY_OFFSET' not set`);
@@ -202,7 +199,8 @@ async function makeRequest(url: string, body: string) {
       "x-shop-locale": "de-DE",
       "origin": "https://www.fielmann.de",
       "referer": "https://www.fielmann.de/brillen/",
-      "user-agent": USER_AGENT,
+      "user-agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1",
     },
   });
 

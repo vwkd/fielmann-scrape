@@ -1,9 +1,3 @@
-const USER_AGENT = Deno.env.get("USER_AGENT");
-
-if (!USER_AGENT) {
-  throw new Error(`Environment variable 'USER_AGENT' not set`);
-}
-
 /**
  * Download image from CDN and save to file
  *
@@ -20,7 +14,8 @@ export async function downloadImage(
     headers: {
       "accept": "image/jpeg,*/*",
       "referer": "https://www.fielmann.de/",
-      "user-agent": USER_AGENT,
+      "user-agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1",
     },
   });
 

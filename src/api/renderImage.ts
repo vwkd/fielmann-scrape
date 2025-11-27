@@ -1,11 +1,5 @@
 import { type PhotoRender } from "../types/fittingbox.ts";
 
-const USER_AGENT = Deno.env.get("USER_AGENT");
-
-if (!USER_AGENT) {
-  throw new Error(`Environment variable 'USER_AGENT' not set`);
-}
-
 /**
  * Render on face with FittingBox API
  *
@@ -49,7 +43,8 @@ export async function renderImage(
       "content-type": "application/json",
       "Origin": "https://static.fittingbox.com/",
       "Referer": "https://static.fittingbox.com/",
-      "User-Agent": USER_AGENT,
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1",
     },
   });
 
