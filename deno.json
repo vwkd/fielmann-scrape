@@ -5,8 +5,8 @@
     "render": "deno run -NRWE --env-file=.env src/features/render.ts"
   },
   "imports": {
-    "@std/encoding": "jsr:@std/encoding@^0.222.1",
-    "@std/fs": "jsr:@std/fs@^0.222.1",
-    "@std/path": "jsr:@std/path@^0.222.1"
+    "@std/encoding": "jsr:@std/encoding@^1.0.10",
+    "@std/fs": "jsr:@std/fs@^1.0.20",
+    "@std/path": "jsr:@std/path@^1.1.3"
   }
 }

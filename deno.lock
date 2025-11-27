@@ -1,40 +1,37 @@
 {
-  "version": "3",
-  "packages": {
-    "specifiers": {
-      "jsr:@std/assert@^0.222.1": "jsr:@std/assert@0.222.1",
-      "jsr:@std/encoding@^0.222.1": "jsr:@std/encoding@0.222.1",
-      "jsr:@std/fs@^0.222.1": "jsr:@std/fs@0.222.1",
-      "jsr:@std/path@^0.222.1": "jsr:@std/path@0.222.1"
+  "version": "5",
+  "specifiers": {
+    "jsr:@std/encoding@^1.0.10": "1.0.10",
+    "jsr:@std/fs@^1.0.20": "1.0.20",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "jsr:@std/path@^1.1.3": "1.1.3"
+  },
+  "jsr": {
+    "@std/encoding@1.0.10": {
+      "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
     },
-    "jsr": {
-      "@std/assert@0.222.1": {
-        "integrity": "691637161ee584a9919d1f9950ddd1272feb8e0a19e83aa5b7563cedaf73d74c"
-      },
-      "@std/encoding@0.222.1": {
-        "integrity": "fb6c1d38722feebc8d4a5efa3eb2039ecec0d50d053186240484d0c4a4ce1006"
-      },
-      "@std/fs@0.222.1": {
-        "integrity": "337613f33e6e5970dddb263c3a3e5b8e39c97810ad6fe326cb9f65146af2503b",
-        "dependencies": [
-          "jsr:@std/assert@^0.222.1",
-          "jsr:@std/path@^0.222.1"
-        ]
-      },
-      "@std/path@0.222.1": {
-        "integrity": "aad3e9463ca53b0adb25b4d5beb330025674aaa3278da24c1c261d9289a9e48b",
-        "dependencies": [
-          "jsr:@std/assert@^0.222.1"
-        ]
-      }
+    "@std/fs@1.0.20": {
+      "integrity": "e953206aae48d46ee65e8783ded459f23bec7dd1f3879512911c35e5484ea187",
+      "dependencies": [
+        "jsr:@std/internal",
+        "jsr:@std/path"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
+    "@std/path@1.1.3": {
+      "integrity": "b015962d82a5e6daea980c32b82d2c40142149639968549c649031a230b1afb3",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
     }
   },
-  "remote": {},
   "workspace": {
     "dependencies": [
-      "jsr:@std/encoding@^0.222.1",
-      "jsr:@std/fs@^0.222.1",
-      "jsr:@std/path@^0.222.1"
+      "jsr:@std/encoding@^1.0.10",
+      "jsr:@std/fs@^1.0.20",
+      "jsr:@std/path@^1.1.3"
     ]
   }
 }
