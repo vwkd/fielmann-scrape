@@ -5,8 +5,10 @@
     "render": "deno run -NRWE --env-file=.env src/features/render.ts"
   },
   "imports": {
+    "@std/async": "jsr:@std/async@^1.0.15",
     "@std/encoding": "jsr:@std/encoding@^1.0.10",
     "@std/fs": "jsr:@std/fs@^1.0.20",
-    "@std/path": "jsr:@std/path@^1.1.3"
+    "@std/path": "jsr:@std/path@^1.1.3",
+    "@std/random": "jsr:@std/random@^0.1.4"
   }
 }

@@ -1,4 +1,5 @@
-import { delay, random_number } from "../utils.ts";
+import { delay } from "@std/async";
+import { randomIntegerBetween } from "@std/random";
 import { brand, faceShape, shape, targetGroup } from "../features/filters.ts";
 import type { Product, ProductsByCategory } from "../types/products.ts";
 
@@ -157,7 +158,11 @@ export async function getProducts(attributes: Attributes): Promise<Product[]> {
   for (let page = 2; page <= last; page += 1) {
     console.debug(`Fetching page ${page}/${last}...`);
 
-    await delay(random_number(DELAY, DELAY_OFFSET));
+    const delay_ms = randomIntegerBetween(
+      DELAY - DELAY_OFFSET,
+      DELAY + DELAY_OFFSET,
+    );
+    await delay(delay_ms);
 
     const productsPage = await getProductsPage(attributes, page, PAGE_SIZE);
 
