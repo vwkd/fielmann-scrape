@@ -1,4 +1,5 @@
 import { join } from "@std/path/join";
+import { entries } from "../types/utils.ts";
 import type {
   Attribute,
   AttributeMultiple,
@@ -25,7 +26,7 @@ interface Attributes {
 function getAttributes(attributes: Attributes) {
   const res = {};
 
-  for (const [name, attribute] of Object.entries(attributes)) {
+  for (const [name, attribute] of entries(attributes)) {
     if (attribute.multiSelect === true) {
       res[name] = attribute.values.map((v) => v.label).join(", ");
     } else {

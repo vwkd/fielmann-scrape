@@ -1,5 +1,6 @@
 import { delay } from "@std/async";
 import { randomIntegerBetween } from "@std/random";
+import { entries } from "../types/utils.ts";
 import type { Product, ProductsByCategory } from "../types/products.ts";
 import type { Attributes, Options } from "../features/products.ts";
 import {
@@ -62,10 +63,7 @@ function getBody(
       categoryId: 1,
       where: {
         attributes: [
-          ...(Object.entries(attributes) as [
-            keyof Attributes,
-            Attributes[keyof Attributes],
-          ][])
+          ...entries(attributes)
             .filter(([_, values]) => values.length > 0)
             .map(([key, values]) => ({
               type: "attributes",
