@@ -1,6 +1,17 @@
 import { Command, ValidationError } from "@cliffy/command";
 import { join } from "@std/path/join";
-import { brand, faceShape, shape, targetGroup } from "../features/filters.ts";
+import {
+  brand,
+  faceShape,
+  glassesWidth,
+  headWidth,
+  rimType,
+  sapMaterial,
+  searchColorEcom,
+  shape,
+  targetGroup,
+  virtualTryOnReady,
+} from "../features/filters.ts";
 import { getProducts } from "../api/fetchProducts.ts";
 import { parseProducts } from "./parse.ts";
 
@@ -20,6 +31,12 @@ export interface Attributes {
   targetGroup: (keyof typeof targetGroup)[];
   shape: (keyof typeof shape)[];
   faceShape: (keyof typeof faceShape)[];
+  searchColorEcom: (keyof typeof searchColorEcom)[];
+  rimType: (keyof typeof rimType)[];
+  sapMaterial: (keyof typeof sapMaterial)[];
+  headWidth: (keyof typeof headWidth)[];
+  glassesWidth: (keyof typeof glassesWidth)[];
+  virtualTryOnReady: (keyof typeof virtualTryOnReady)[];
 }
 
 export default new Command()
@@ -87,6 +104,66 @@ export default new Command()
       return [...agg, value];
     },
   })
+  .option("-c, --search-color-ecom <search-color-ecom:string>", "Color", {
+    collect: true,
+    value: (value: string, agg: string[] = []) => {
+      if (!Object.keys(searchColorEcom).includes(value)) {
+        throw new ValidationError(`Invalid color '${value}'`);
+      }
+      return [...agg, value];
+    },
+  })
+  .option("-r, --rim-type <rim-type:string>", "Rim type", {
+    collect: true,
+    value: (value: string, agg: string[] = []) => {
+      if (!Object.keys(rimType).includes(value)) {
+        throw new ValidationError(`Invalid rim type '${value}'`);
+      }
+      return [...agg, value];
+    },
+  })
+  .option("-m, --sap-material <sap-material:string>", "Material", {
+    collect: true,
+    value: (value: string, agg: string[] = []) => {
+      if (!Object.keys(sapMaterial).includes(value)) {
+        throw new ValidationError(`Invalid material '${value}'`);
+      }
+      return [...agg, value];
+    },
+  })
+  .option("-h, --head-width <head-width:string>", "Head width", {
+    collect: true,
+    value: (value: string, agg: string[] = []) => {
+      if (!Object.keys(headWidth).includes(value)) {
+        throw new ValidationError(`Invalid head width '${value}'`);
+      }
+      return [...agg, value];
+    },
+  })
+  .option("-w, --glasses-width <glasses-width:string>", "Glasses width", {
+    collect: true,
+    value: (value: string, agg: string[] = []) => {
+      if (!Object.keys(glassesWidth).includes(value)) {
+        throw new ValidationError(`Invalid glasses width '${value}'`);
+      }
+      return [...agg, value];
+    },
+  })
+  .option(
+    "-v, --virtual-try-on-ready <virtual-try-on-ready:string>",
+    "Virtual try-on ready",
+    {
+      collect: true,
+      value: (value: string, agg: string[] = []) => {
+        if (!Object.keys(virtualTryOnReady).includes(value)) {
+          throw new ValidationError(
+            `Invalid virtual try-on ready option '${value}'`,
+          );
+        }
+        return [...agg, value];
+      },
+    },
+  )
   .action(fetchProducts);
 
 /**

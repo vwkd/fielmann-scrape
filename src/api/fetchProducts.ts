@@ -2,8 +2,33 @@ import { delay } from "@std/async";
 import { randomIntegerBetween } from "@std/random";
 import type { Product, ProductsByCategory } from "../types/products.ts";
 import type { Attributes, Options } from "../features/products.ts";
+import {
+  brand,
+  faceShape,
+  glassesWidth,
+  headWidth,
+  rimType,
+  sapMaterial,
+  searchColorEcom,
+  shape,
+  targetGroup,
+  virtualTryOnReady,
+} from "../features/filters.ts";
 
 const PAGE_SIZE = 24;
+
+const filterMap = {
+  brand,
+  faceShape,
+  glassesWidth,
+  headWidth,
+  rimType,
+  sapMaterial,
+  searchColorEcom,
+  shape,
+  targetGroup,
+  virtualTryOnReady,
+} as const;
 
 /**
  * Get body for API request
@@ -70,28 +95,16 @@ function getBody(attributes: Attributes, page: number, perPage: number) {
       category: "/brillen/",
       includeSellableForFree: true,
       where: {
-        attributes: [
-          {
-            key: "brand",
+        values: (Object.entries(attributes) as [
+          keyof Attributes,
+          Attributes[keyof Attributes],
+        ][])
+          .filter(([_, values]) => values.length > 0)
+          .map(([key, values]) => ({
+            key: key,
             type: "attributes",
-            values: attributes.brand,
-          },
-          {
-            key: "targetGroup",
-            type: "attributes",
-            values: attributes.targetGroup,
-          },
-          {
-            key: "shape",
-            type: "attributes",
-            values: attributes.shape,
-          },
-          {
-            key: "faceShape",
-            type: "attributes",
-            values: attributes.faceShape,
-          },
-        ].filter((el) => el.values.length > 0),
+            values: values.map((v) => filterMap[key][v]),
+          })),
         term: "",
         page,
       },

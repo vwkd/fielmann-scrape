@@ -146,9 +146,152 @@ const faceShape = {
   "Trapez": 59137,
 } as const;
 
+/**
+ * Farbe
+ */
+const searchColorEcom = {
+  "Beige": 1332,
+  "Blau": 1086,
+  "Braun": 1286,
+  "Bronze": 17680,
+  "Bunt": 21486,
+  "Gelb": 1700,
+  "Gold": 17363,
+  "Grau": 1083,
+  "Grün": 1315,
+  "Havanna": 1147,
+  "Kupfer": 17983,
+  "Lila": 1363,
+  "Orange": 1753,
+  "Pink": 17332,
+  "Rot": 1215,
+  "Schwarz": 1007,
+  "Silber": 17369,
+  "Transparent": 1074,
+  "Weiss": 54588,
+} as const;
+
+/**
+ * Fassungstyp
+ */
+const rimType = {
+  "Randlos": 1443,
+  "Halbrand": 59663,
+  "Vollrand": 1029,
+} as const;
+
+/**
+ * Fassungsmaterial
+ */
+const sapMaterial = {
+  "Acetat": 1413,
+  "Acetat Metall": 54784,
+  "Aluminium": 71628,
+  "Beta Titan": 71724,
+  "Bio-Acetat": 1552,
+  "Bio-Kunststoff": 17358,
+  "Blockacetat": 3641,
+  "Edelstahl": 1617,
+  "ISCC zertifiziertes recyceltes Acetat": 68444,
+  "Kunststoff": 55,
+  "Kunststoff Metall": 32765,
+  "Material Mix": 32311,
+  "Memory Titan": 69926,
+  "Metall": 42,
+  "Nylon": 3884,
+  "Propionat": 3680,
+  "Recycelt": 6161,
+  "Recycled Acetat": 31681,
+  "Titan": 2330,
+  "Titanflex": 3121,
+  "TR90": 31862,
+} as const;
+
+/**
+ * Kopfbreite
+ */
+const headWidth = {
+  "L": 54379,
+  "M": 54377,
+  "S": 54389,
+} as const;
+
+/**
+ * Brillenbreite
+ */
+const glassesWidth = {
+  "99 mm": 54403,
+  "108 mm": 54398,
+  "110 mm": 54465,
+  "111 mm": 54434,
+  "111.8 mm": 264998,
+  "112 mm": 54394,
+  "113 mm": 54442,
+  "114 mm": 54445,
+  "115 mm": 54440,
+  "116 mm": 54393,
+  "117 mm": 54402,
+  "118 mm": 54421,
+  "119 mm": 54410,
+  "120 mm": 54395,
+  "121 mm": 54433,
+  "122 mm": 54427,
+  "123 mm": 54431,
+  "124": 259548,
+  "124 mm": 54401,
+  "125 mm": 54418,
+  "126 mm": 54376,
+  "127 mm": 54386,
+  "128": 261902,
+  "128 mm": 54414,
+  "129 mm": 54382,
+  "130 mm": 54380,
+  "131 mm": 54387,
+  "131.4": 265058,
+  "132": 261904,
+  "132 mm": 54390,
+  "133 mm": 54388,
+  "134": 262768,
+  "134 mm": 54378,
+  "135 mm": 54415,
+  "135.5": 265781,
+  "136": 264023,
+  "136 mm": 54381,
+  "136.6": 264840,
+  "137 mm": 54420,
+  "138 mm": 54407,
+  "139 mm": 54385,
+  "139.3": 265142,
+  "140": 264077,
+  "140 mm": 54426,
+  "140.5": 272475,
+  "141 mm": 54424,
+  "142 mm": 54425,
+  "142.7": 264314,
+  "143 mm": 54408,
+  "144": 264024,
+  "144 mm": 54396,
+  "145": 264172,
+  "150": 264917,
+} as const;
+
+/**
+ * Virtuelle-Anprobe möglich
+ */
+const virtualTryOnReady = {
+  "false": 17435,
+  "true": 17342,
+} as const;
+
 export {
   brand,
   faceShape,
+  glassesWidth,
+  headWidth,
+  rimType,
+  sapMaterial,
+  searchColorEcom,
   shape,
   targetGroup,
+  virtualTryOnReady,
 };
