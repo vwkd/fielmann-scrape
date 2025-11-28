@@ -9,10 +9,6 @@ import type {
 const OUTPUT_DIRNAME = "out";
 const PRODUCTS_FILEPATH = join(OUTPUT_DIRNAME, "productsParsed.json");
 
-interface Attributes {
-  [name: string]: Attribute | AttributeMultiple;
-}
-
 /**
  * Get attribute names and values
  *
@@ -23,8 +19,10 @@ interface Attributes {
  * @param attributes object of attributes with name and nested structure
  * @returns object of attributes with name and value
  */
-function getAttributes(attributes: Attributes) {
-  const res = {};
+function getAttributes<T extends Record<string, Attribute | AttributeMultiple>>(
+  attributes: T,
+): Record<keyof T, string> {
+  const res = {} as Record<keyof T, string>;
 
   for (const [name, attribute] of entries(attributes)) {
     if (attribute.multiSelect === true) {

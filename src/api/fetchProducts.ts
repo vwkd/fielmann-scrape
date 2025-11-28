@@ -68,7 +68,9 @@ function getBody(
             .map(([key, values]) => ({
               type: "attributes",
               key: key,
-              values: values.map((v) => filterMap[key][v]),
+              values: values.map((v) =>
+                (filterMap[key] as Record<string, number>)[v]
+              ),
             })),
           {
             type: "attributes",
