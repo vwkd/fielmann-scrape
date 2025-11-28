@@ -20,16 +20,14 @@ Scrape products from Fielmann
 
 ## Usage
 
-- open [URL](https://www.fielmann.de/brillen/) in a browser, create the desired filters, and show results
-- set `BRAND`, `TARGET_GROUP`, `SHAPE`, `FACE_SHAPE` in `.env` with filter values from URL
 - note: recommends to run script several times for multiple specific filters rather than single time for one unspecific filter to get multiple separate output directories instead of one commingled.
 
 ### Parse products
 
-- run
+- run with desired filter values
 
 ```sh
-deno task products
+deno task run products
 ```
 
 - can browse with Nushell
@@ -58,14 +56,13 @@ http post --content-type application/json https://www.fielmann.de/api/rpc/getRxP
 - run
 
 ```sh
-deno task images
+deno task run images
 ```
 
 ### Render images
 
-- set `FACE_PIC_FILEPATH` in `.env`
 - run
 
 ```sh
-deno task render
+deno task run render -p path/to/pic.jpeg
 ```

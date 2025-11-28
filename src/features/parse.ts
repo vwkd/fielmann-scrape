@@ -1,6 +1,9 @@
 import { join } from "@std/path/join";
-import { products } from "./products.ts";
-import type { Attribute, AttributeMultiple } from "../types/products.ts";
+import type {
+  Attribute,
+  AttributeMultiple,
+  Product,
+} from "../types/products.ts";
 
 const OUTPUT_DIRNAME = "out";
 const PRODUCTS_FILEPATH = join(OUTPUT_DIRNAME, "productsParsed.json");
@@ -38,106 +41,111 @@ function getAttributes(attributes: Attributes) {
   return res;
 }
 
-console.info(`Parsing products...`);
+/**
+ * Parse products
+ */
+export async function parseProducts(products: Product[]): Promise<void> {
+  console.info(`Parsing products...`);
 
-const productsParsed = [];
+  const productsParsed = [];
 
-for (const product of products) {
-  // id
-  // -
-  // isActive
-  // -
-  // isSoldOut
-  // -
-  // isNew
-  // -
-  // createdAt
-  // -
-  // updatedAt
-  // -
-  // indexedAt
-  // -
-  // firstLiveAt
-  // -
-  // masterKey
-  // -
-  // referenceKey
-  // -
-
-  // attributes
-  const attributes = getAttributes(product.attributes);
-
-  // advancedAttributes
-  // -
-
-  const lensesArray: string[] = [];
-  for (
-    const lens of product.advancedAttributes.rxCountryIndexAvailability.values
-  ) {
-    const country = lens.fieldSet[0][0].value;
-
-    if (country !== "de") {
-      continue;
-    }
-
-    const lensId = lens.fieldSet[0][1].value;
-
-    lensesArray.push(lensId);
-  }
-  const lenses = lensesArray.join(", ");
-
-  // images
-  // -
-
-  // variants
-  for (const variant of product.variants) {
+  for (const product of products) {
     // id
     // -
-    // referenceKey
+    // isActive
     // -
-
-    // attributes
-    const variantAttributes = getAttributes(variant.attributes);
-
-    // advancedAttributes
+    // isSoldOut
     // -
-    // firstLiveAt
+    // isNew
     // -
     // createdAt
     // -
     // updatedAt
     // -
-    // stock
+    // indexedAt
+    // -
+    // firstLiveAt
+    // -
+    // masterKey
+    // -
+    // referenceKey
     // -
 
-    // price
-    const price = variant.price.withTax / 100;
+    // attributes
+    const attributes = getAttributes(product.attributes);
 
+    // advancedAttributes
+    // -
+
+    const lensesArray: string[] = [];
+    for (
+      const lens of product.advancedAttributes.rxCountryIndexAvailability.values
+    ) {
+      const country = lens.fieldSet[0][0].value;
+
+      if (country !== "de") {
+        continue;
+      }
+
+      const lensId = lens.fieldSet[0][1].value;
+
+      lensesArray.push(lensId);
+    }
+    const lenses = lensesArray.join(", ");
+
+    // images
+    // -
+
+    // variants
+    for (const variant of product.variants) {
+      // id
+      // -
+      // referenceKey
+      // -
+
+      // attributes
+      const variantAttributes = getAttributes(variant.attributes);
+
+      // advancedAttributes
+      // -
+      // firstLiveAt
+      // -
+      // createdAt
+      // -
+      // updatedAt
+      // -
+      // stock
+      // -
+
+      // price
+      const price = variant.price.withTax / 100;
+
+      // lowestPriorPrice
+      // -
+      // // note
+      // -
+      // customData
+      // -
+
+      productsParsed.push({
+        ...attributes,
+        ...variantAttributes,
+        price,
+        lenses,
+      });
+    }
+
+    // priceRange
+    // -
     // lowestPriorPrice
     // -
-    // // note
+    // siblings
+    // -
+    // categories
     // -
     // customData
     // -
-
-    productsParsed.push({
-      ...attributes,
-      ...variantAttributes,
-      price,
-      lenses,
-    });
   }
 
-  // priceRange
-  // -
-  // lowestPriorPrice
-  // -
-  // siblings
-  // -
-  // categories
-  // -
-  // customData
-  // -
+  await Deno.writeTextFile(PRODUCTS_FILEPATH, JSON.stringify(productsParsed));
 }
-
-await Deno.writeTextFile(PRODUCTS_FILEPATH, JSON.stringify(productsParsed));

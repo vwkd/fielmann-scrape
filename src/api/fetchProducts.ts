@@ -1,39 +1,9 @@
 import { delay } from "@std/async";
 import { randomIntegerBetween } from "@std/random";
-import { brand, faceShape, shape, targetGroup } from "../features/filters.ts";
 import type { Product, ProductsByCategory } from "../types/products.ts";
+import type { Attributes, Options } from "../features/products.ts";
 
-const DELAY_STR = Deno.env.get("DELAY");
-const DELAY_OFFSET_STR = Deno.env.get("DELAY_OFFSET");
 const PAGE_SIZE = 24;
-
-if (!DELAY_STR) {
-  throw new Error(`Environment variable 'DELAY' not set`);
-} else if (!DELAY_OFFSET_STR) {
-  throw new Error(`Environment variable 'DELAY_OFFSET' not set`);
-}
-
-const DELAY = Number(DELAY_STR);
-const DELAY_OFFSET = Number(DELAY_OFFSET_STR);
-
-if (Number.isInteger(DELAY) || DELAY < 0) {
-  throw new Error(
-    `Expected non-negative integer 'DELAY' but got '${DELAY_STR}'`,
-  );
-}
-
-if (Number.isInteger(DELAY_OFFSET) || DELAY_OFFSET < 0) {
-  throw new Error(
-    `Expected non-negative integer 'DELAY_OFFSET' but got '${DELAY_OFFSET_STR}'`,
-  );
-}
-
-interface Attributes {
-  brand: (keyof typeof brand)[];
-  targetGroup: (keyof typeof targetGroup)[];
-  shape: (keyof typeof shape)[];
-  faceShape: (keyof typeof faceShape)[];
-}
 
 /**
  * Get body for API request
@@ -141,10 +111,12 @@ function getBody(attributes: Attributes, page: number, perPage: number) {
  *
  * - note: delayed by delay +- random offset
  *
- * @param attributes attributes to filter by
+ * @param options attributes to filter by
  * @returns array of products
  */
-export async function getProducts(attributes: Attributes): Promise<Product[]> {
+export async function getProducts(options: Options): Promise<Product[]> {
+  const { delayMean, delayOffset, ...attributes } = options;
+
   console.debug(`Fetching page 1/?...`);
 
   const productsPage = await getProductsPage(attributes, 1, PAGE_SIZE);
@@ -156,8 +128,8 @@ export async function getProducts(attributes: Attributes): Promise<Product[]> {
     console.debug(`Fetching page ${page}/${last}...`);
 
     const delay_ms = randomIntegerBetween(
-      DELAY - DELAY_OFFSET,
-      DELAY + DELAY_OFFSET,
+      delayMean - delayOffset,
+      delayMean + delayOffset,
     );
     await delay(delay_ms);
 

@@ -1,10 +1,9 @@
 {
   "tasks": {
-    "products": "deno run -NRWE --env-file=.env src/features/parse.ts",
-    "images": "deno run -NRWE --env-file=.env src/features/images.ts",
-    "render": "deno run -NRWE --env-file=.env src/features/render.ts"
+    "run": "deno run -NRWE src/main.ts"
   },
   "imports": {
+    "@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.8",
     "@std/async": "jsr:@std/async@^1.0.15",
     "@std/encoding": "jsr:@std/encoding@^1.0.10",
     "@std/fs": "jsr:@std/fs@^1.0.20",
