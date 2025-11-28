@@ -50,7 +50,7 @@ export async function downloadImages(): Promise<void> {
 
       const filename = join(
         IMAGES_DIRNAME,
-        `${name} ${view}.jpeg`,
+        `${name.replaceAll("/", "-")} ${view}.jpeg`,
       );
 
       if (await exists(filename)) {
