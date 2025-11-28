@@ -15,8 +15,6 @@ import {
   virtualTryOnReady,
 } from "../features/filters.ts";
 
-const PAGE_SIZE = 24;
-
 const filterMap = {
   brand,
   faceShape,
@@ -35,10 +33,9 @@ const filterMap = {
  *
  * @param attributes attributes to filter by
  * @param page page number
- * @param perPage results per page
  * @returns body for API request
  */
-function getBody(attributes: Attributes, page: number, perPage: number) {
+function getBody(attributes: Attributes, page: number) {
   return {
     payload: {
       with: {
@@ -89,7 +86,7 @@ function getBody(attributes: Attributes, page: number, perPage: number) {
         ],
         term: "",
       },
-      perPage,
+      perPage: 24,
       page,
       sort: {
         name: "sortingKey",
@@ -113,7 +110,7 @@ export async function getProducts(options: Options): Promise<Product[]> {
 
   console.debug(`Fetching page 1/?...`);
 
-  const productsPage = await getProductsPage(attributes, 1, PAGE_SIZE);
+  const productsPage = await getProductsPage(attributes, 1);
   const products = productsPage.products;
   const last = productsPage.pagination.last;
 
@@ -127,7 +124,7 @@ export async function getProducts(options: Options): Promise<Product[]> {
     );
     await delay(delay_ms);
 
-    const productsPage = await getProductsPage(attributes, page, PAGE_SIZE);
+    const productsPage = await getProductsPage(attributes, page);
 
     products.push(...productsPage.products);
   }
@@ -138,11 +135,10 @@ export async function getProducts(options: Options): Promise<Product[]> {
 async function getProductsPage(
   attributes: Attributes,
   page: number,
-  perPage: number,
 ): Promise<ProductsByCategory> {
   const productsUrl = `https://www.fielmann.de/api/rpc/getProductsByCategory`;
 
-  const body = getBody(attributes, page, perPage);
+  const body = getBody(attributes, page);
   const body_str = JSON.stringify(body);
 
   const res = await makeRequest(productsUrl, body_str);
