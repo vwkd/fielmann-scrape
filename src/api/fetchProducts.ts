@@ -57,17 +57,6 @@ function getBody(
         images: "all",
         priceRange: true,
         lowestPriorPrice: true,
-        siblings: {
-          images: "all",
-          attributes: "all",
-          advancedAttributes: "all",
-          priceRange: true,
-          variants: {
-            attributes: "all",
-            advancedAttributes: "all",
-            lowestPriorPrice: true,
-          },
-        },
       },
       includeSellableForFree: true,
       categoryId: 1,

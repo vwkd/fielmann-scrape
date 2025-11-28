@@ -31,7 +31,6 @@ export interface Product {
   variants: Variant[];
   priceRange: PriceRange;
   lowestPriorPrice: LowestPriorPrice;
-  siblings: Sibling[];
   categories: Category[][];
   // note: empty object
   customData: Record<string | number | symbol, never>;
@@ -226,35 +225,6 @@ export interface LowestPriorPrice {
 export interface PriceRange {
   min: Price;
   max: Price;
-}
-
-export interface Sibling {
-  id: number;
-  isActive: boolean;
-  isSoldOut: boolean;
-  isNew: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  indexedAt: Date;
-  firstLiveAt: Date;
-  masterKey: string;
-  referenceKey: string;
-  attributes: SiblingAttributes;
-  images: SiblingImage[];
-  priceRange: PriceRange;
-  // note: empty object
-  customData: Record<string | number | symbol, never>;
-}
-
-export interface SiblingAttributes {
-  manufacturerColorCode: Attribute;
-  frameColor: Attribute;
-  name: Attribute;
-}
-
-export interface SiblingImage {
-  hash: string;
-  attributes: ImageAttributes;
 }
 
 export interface Category {
