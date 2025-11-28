@@ -24,6 +24,8 @@ export const PRODUCTS_FILEPATH = join(OUTPUT_DIRNAME, "products.json");
 export interface Options extends Attributes {
   delayMean: number;
   delayOffset: number;
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 export interface Attributes {
@@ -68,6 +70,24 @@ export default new Command()
     },
   )
   .group("Filter Options")
+  .option("--min-price <min-price:integer>", "Minimum price", {
+    value: (value: number) => {
+      // todo: validate that is less than `maxPrice`
+      if (value < 0) {
+        throw new ValidationError(`Invalid minimum price '${value}'`);
+      }
+      return value;
+    },
+  })
+  .option("--max-price <max-price:integer>", "Maximum price", {
+    value: (value: number) => {
+      // todo: validate that is more than `minPrice`
+      if (value < 0) {
+        throw new ValidationError(`Invalid maximum price '${value}'`);
+      }
+      return value;
+    },
+  })
   .option("-b, --brand <brand:string>", "Brand", {
     collect: true,
     value: (value: string, agg: string[] = []) => {

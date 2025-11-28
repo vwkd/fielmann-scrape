@@ -33,9 +33,16 @@ const filterMap = {
  *
  * @param attributes attributes to filter by
  * @param page page number
+ * @param minPrice minimum price
+ * @param maxPrice maximum price
  * @returns body for API request
  */
-function getBody(attributes: Attributes, page: number) {
+function getBody(
+  attributes: Attributes,
+  page: number,
+  minPrice?: number,
+  maxPrice?: number,
+) {
   return {
     payload: {
       with: {
@@ -84,6 +91,8 @@ function getBody(attributes: Attributes, page: number) {
             ],
           },
         ],
+        ...(minPrice && { minPrice }),
+        ...(maxPrice && { maxPrice }),
         term: "",
       },
       perPage: 24,
@@ -106,11 +115,11 @@ function getBody(attributes: Attributes, page: number) {
  * @returns array of products
  */
 export async function getProducts(options: Options): Promise<Product[]> {
-  const { delayMean, delayOffset, ...attributes } = options;
+  const { delayMean, delayOffset, minPrice, maxPrice, ...attributes } = options;
 
   console.debug(`Fetching page 1/?...`);
 
-  const productsPage = await getProductsPage(attributes, 1);
+  const productsPage = await getProductsPage(attributes, 1, minPrice, maxPrice);
   const products = productsPage.products;
   const last = productsPage.pagination.last;
 
@@ -124,7 +133,12 @@ export async function getProducts(options: Options): Promise<Product[]> {
     );
     await delay(delay_ms);
 
-    const productsPage = await getProductsPage(attributes, page);
+    const productsPage = await getProductsPage(
+      attributes,
+      page,
+      minPrice,
+      maxPrice,
+    );
 
     products.push(...productsPage.products);
   }
@@ -135,10 +149,12 @@ export async function getProducts(options: Options): Promise<Product[]> {
 async function getProductsPage(
   attributes: Attributes,
   page: number,
+  minPrice?: number,
+  maxPrice?: number,
 ): Promise<ProductsByCategory> {
   const productsUrl = `https://www.fielmann.de/api/rpc/getProductsByCategory`;
 
-  const body = getBody(attributes, page);
+  const body = getBody(attributes, page, minPrice, maxPrice);
   const body_str = JSON.stringify(body);
 
   const res = await makeRequest(productsUrl, body_str);
