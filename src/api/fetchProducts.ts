@@ -41,8 +41,6 @@ const filterMap = {
 function getBody(attributes: Attributes, page: number, perPage: number) {
   return {
     payload: {
-      page,
-      perPage,
       with: {
         attributes: "all",
         advancedAttributes: "all",
@@ -52,69 +50,52 @@ function getBody(attributes: Attributes, page: number, perPage: number) {
           advancedAttributes: "all",
           lowestPriorPrice: true,
         },
-        images: {
-          attributes: {
-            withKey: [
-              "imageType",
-              "imageView",
-              "imageBackground",
-              "imageKind",
-              "imageVariantReferenceKey",
-            ],
-          },
-        },
+        images: "all",
         priceRange: true,
         lowestPriorPrice: true,
         siblings: {
-          images: {
-            attributes: {
-              withKey: [
-                "imageType",
-                "imageView",
-                "imageBackground",
-                "imageKind",
-                "imageVariantReferenceKey",
-              ],
-            },
-          },
-          attributes: {
-            withKey: [
-              "category",
-              "numberOfLenses",
-              "colorDetail",
-              "name",
-              "netContent",
-              "manufacturerColorCode",
-              "frameColor",
-              "filterCategory",
-            ],
-          },
+          images: "all",
+          attributes: "all",
+          advancedAttributes: "all",
           priceRange: true,
+          variants: {
+            attributes: "all",
+            advancedAttributes: "all",
+            lowestPriorPrice: true,
+          },
         },
       },
-      category: "/brillen/",
       includeSellableForFree: true,
+      categoryId: 1,
       where: {
-        values: (Object.entries(attributes) as [
-          keyof Attributes,
-          Attributes[keyof Attributes],
-        ][])
-          .filter(([_, values]) => values.length > 0)
-          .map(([key, values]) => ({
-            key: key,
+        attributes: [
+          ...(Object.entries(attributes) as [
+            keyof Attributes,
+            Attributes[keyof Attributes],
+          ][])
+            .filter(([_, values]) => values.length > 0)
+            .map(([key, values]) => ({
+              type: "attributes",
+              key: key,
+              values: values.map((v) => filterMap[key][v]),
+            })),
+          {
             type: "attributes",
-            values: values.map((v) => filterMap[key][v]),
-          })),
+            key: "page",
+            values: [
+              page,
+            ],
+          },
+        ],
         term: "",
-        page,
       },
+      perPage,
+      page,
       sort: {
         name: "sortingKey",
-        sortingKey: "brillen",
+        sortingKey: "Brille",
         direction: "asc",
       },
-      pricePromotionKey: "",
-      includeSoldOut: false,
     },
   };
 }
